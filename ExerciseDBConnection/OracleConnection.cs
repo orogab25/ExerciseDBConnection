@@ -20,19 +20,30 @@ namespace ExerciseDBConnection
 
         public override void Open()
         {
-            if (Timeout != null)
+            if (Timeout.TotalMilliseconds != 0)
             {
-                if (TempDate != null && (DateTime.Now - TempDate) < Timeout)
+                if (Stopwatch.Elapsed != null)
                 {
-                    throw new InvalidOperationException("Wait for the timeout!");
+                    if (Stopwatch.Elapsed < Timeout)
+                    {
+                        throw new InvalidOperationException("Wait for the timeout!");
+                    }
+                    Stopwatch.Stop();
                 }
-                TempDate = DateTime.Now;
             }
             Console.WriteLine("Opened the oracle connection.");
         }
 
         public override void Close()
         {
+            if (Timeout.TotalMilliseconds != 0)
+            {
+                if (Stopwatch.Elapsed != null)
+                {
+                    throw new InvalidOperationException("You need to open it first!");
+                }
+                Stopwatch.Start();
+            }
             Console.WriteLine("Closed the oracle connection.");
         }
     }

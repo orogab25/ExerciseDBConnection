@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace ExerciseDBConnection
 {
@@ -6,7 +7,7 @@ namespace ExerciseDBConnection
     {
         public string ConnectionString { get; set; }
         public TimeSpan Timeout { get; set; }
-        public DateTime TempDate { get; set; }
+        public Stopwatch Stopwatch { get; set; }
 
         public DbConnection(string connectionString)
         {
@@ -21,6 +22,7 @@ namespace ExerciseDBConnection
             :this(connectionString)
         {
             Timeout = timeout;
+            Stopwatch = new Stopwatch();
         }
 
         public abstract void Open();
