@@ -6,15 +6,20 @@ namespace ExerciseDBConnection
     {
         static void Main(string[] args)
         {
-            DbConnection sql = new SqlConnection("asd");
-            sql.Open();
+            DbConnection sql = new SqlConnection("sql");
             sql.Open();
             sql.Close();
 
             TimeSpan timeout = TimeSpan.FromSeconds(5);
-            DbConnection oracle = new OracleConnection("bsd",timeout);
-            oracle.Open();
-            oracle.Close();
+            DbConnection oracleTimeout = new OracleConnection("oracle",timeout);
+
+            DbConnection oracle = new OracleConnection("oracle");
+
+            DbCommand sqlCommand = new DbCommand(sql, "sql command");
+            sqlCommand.Execute();
+
+            DbCommand oracleCommand = new DbCommand(oracle, "oracle command");
+            oracleCommand.Execute();
         }
     }
 }
